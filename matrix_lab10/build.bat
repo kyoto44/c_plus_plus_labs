@@ -1,0 +1,1 @@
+g++ main.cpp MatrixBase.cpp MatrixBase.h Matrix2D.cpp Matrix2D.h Matrix3D.cpp Matrix3D.h -o matrix_lab && matrix_lab.exe
