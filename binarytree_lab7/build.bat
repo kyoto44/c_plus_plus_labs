@@ -1,0 +1,1 @@
+g++ main.cpp TreeNode.cpp TreeNode.h BinaryTree.cpp BinaryTree.h -o binarytree && binarytree.exe
