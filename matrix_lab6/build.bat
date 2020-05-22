@@ -1,0 +1,1 @@
+g++ main.cpp Matrix3x3.cpp Matrix3x3.h MatrixXnX.cpp MatrixXnX.h Node.cpp Node.h -o matrix_lab6 && matrix_lab6.exe
