@@ -3,8 +3,6 @@
 #include <iostream>
 #include <stdexcept>
 
-using namespace std;
-
 class MatrixBase
 {
 public:
@@ -14,7 +12,7 @@ public:
     void operator+=(MatrixBase &iAdd);
     virtual int element(unsigned int i, unsigned int j) const = 0;
     virtual int &element(unsigned int i, unsigned int j) = 0;
-    friend ostream &operator<<(ostream &out, const MatrixBase &iMatrix);
+    friend std::ostream &operator<<(std::ostream &out, const MatrixBase &iMatrix);
 
 protected:
     explicit MatrixBase(unsigned int iSize) : m_size(iSize) {}
