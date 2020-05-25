@@ -1,6 +1,6 @@
 #ifndef LAB_WITH_MATRIX_MATRIX3X3_H
 #define LAB_WITH_MATRIX_MATRIX3X3_H
-
+#define MATRIX3X3_SIZE 3
 class Matrix3x3
 {
 public:
@@ -17,7 +17,7 @@ public:
     int maxColumn(const int iCol) const;
 
 private:
-    int state[3][3];
+    int state[MATRIX3X3_SIZE][MATRIX3X3_SIZE];
 };
 
 #endif

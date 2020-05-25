@@ -6,13 +6,14 @@
 #include "MatrixXnX.h"
 #include "Node.h"
 
+#define MATRIX3X3_SIZE 3
 using namespace std;
 
 void PrintMatrix3x3(Matrix3x3 matrix3X3)
 {
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < MATRIX3X3_SIZE; ++i)
     {
-        for (int j = 0; j < 3; ++j)
+        for (int j = 0; j < MATRIX3X3_SIZE; ++j)
             cout << matrix3X3.element(i, j) << "\t";
         cout << endl;
     }
