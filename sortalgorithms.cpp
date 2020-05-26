@@ -8,26 +8,32 @@
 using namespace std;
 
 //Линейный поиск
-int Search(int *arr, int size, int requiredValue) {
-  for (int i = 0; i < size; ++i) {
+int Search(int *arr, int size, int requiredValue)
+{
+  for (int i = 0; i < size; ++i)
+  {
     if (arr[i] == requiredValue)
       return arr[i];
   }
   return -1337;
 }
 
-void Swap(int *a, int *b) {
+void Swap(int *a, int *b)
+{
   int temp = *a;
   *a = *b;
   *b = temp;
 }
 
-int Partition(int *arr, int begin, int end) {
+int Partition(int *arr, int begin, int end)
+{
   int x = arr[end];
   int i = begin - 1;
 
-  for (int j = begin; j <= end - 1; j++) {
-    if (arr[j] <= x) {
+  for (int j = begin; j <= end - 1; j++)
+  {
+    if (arr[j] <= x)
+    {
       i++;
       Swap(&arr[i], &arr[j]);
     }
@@ -37,34 +43,68 @@ int Partition(int *arr, int begin, int end) {
 }
 
 //Нерекурсивная быстрая сортировка
-void QuickSort(int *array, int start, int end) {
-  int stack[end - start + 1];
-  int top = -1;
+void QuickSort(int *arr, int size)
+{
+  const int MAXSTACK = 1024;
+  int i, j, lb, ub, lbstack[MAXSTACK], ubstack[MAXSTACK], stackpos = 1, ppos, pivot;
+  lbstack[1] = 0;
+  ubstack[1] = size - 1;
 
-  stack[++top] = start;
-  stack[++top] = end;
+  do
+  {
+    lb = lbstack[stackpos];
+    ub = ubstack[stackpos];
+    stackpos--;
+    do
+    {
+      ppos = (lb + ub) >> 1;
+      i = lb;
+      j = ub;
+      pivot = arr[ppos];
+      do
+      {
+        while (arr[i] < pivot)
+          i++;
+        while (pivot < arr[j])
+          j--;
 
-  while (top >= 0) {
-    end = stack[top--];
-    start = stack[top--];
+        if (i <= j)
+        {
+          Swap(&arr[i], &arr[j]);
+          i++;
+          j--;
+        }
+      } while (i <= j);
 
-    int p = Partition(array, start, end);
-
-    if (p - 1 > start) {
-      stack[++top] = start;
-      stack[++top] = p - 1;
-    }
-
-    if (p + 1 < end) {
-      stack[++top] = p + 1;
-      stack[++top] = end;
-    }
-  }
+      if (i < ppos)
+      {
+        if (i < ub)
+        {
+          stackpos++;
+          lbstack[stackpos] = i;
+          ubstack[stackpos] = ub;
+        }
+        ub = j;
+      }
+      else
+      {
+        if (j > lb)
+        {
+          stackpos++;
+          lbstack[stackpos] = lb;
+          ubstack[stackpos] = j;
+        }
+        lb = i;
+      }
+    } while (lb < ub);
+  } while (stackpos != 0);
 }
 
 //Рекурсивная быстрая сортировка
-void QuickSortRecursive(int *arr, int begin, int end) {
-  if (begin < end) {
+void QuickSortRecursive(int *arr, int begin, int end)
+{
+  if (begin < end)
+  {
     int q = Partition(arr, begin, end);
     QuickSortRecursive(arr, begin, q - 1);
     QuickSortRecursive(arr, q + 1, end);
@@ -72,8 +112,10 @@ void QuickSortRecursive(int *arr, int begin, int end) {
 }
 
 //Бинарный поиск
-int BinarySearch(const int *arr, int value, int left, int right) {
-  while (right >= left) {
+int BinarySearch(const int *arr, int value, int left, int right)
+{
+  while (right >= left)
+  {
     int mid = (right + left) / 2;
     if (arr[mid] == value)
       return mid;
@@ -86,7 +128,8 @@ int BinarySearch(const int *arr, int value, int left, int right) {
 }
 
 //Рекурсивный бинарный поиск
-int RecursiveBinarySearch(int *arr, int value, int left, int right) {
+int RecursiveBinarySearch(int *arr, int value, int left, int right)
+{
   int mid = (right + left) / 2;
   if (arr[mid] == value)
     return mid;
@@ -98,24 +141,29 @@ int RecursiveBinarySearch(int *arr, int value, int left, int right) {
 }
 
 //Заполнение массива случайными числами
-void FillArrayRnd(int *arr, int size, int min, int max) {
+void FillArrayRnd(int *arr, int size, int min, int max)
+{
   std::default_random_engine generator(time(0));
   std::uniform_int_distribution<int> random(min, max);
-  for (int i = 0; i < size; ++i) {
+  for (int i = 0; i < size; ++i)
+  {
     arr[i] = random(generator);
   }
 }
 
 //Вывод нужного количества элементов
-void PrintElem(int *arr, int num) {
+void PrintElem(int *arr, int num)
+{
   cout << "First " << num << " elements : ";
-  for (int i = 0; i < num; ++i) {
+  for (int i = 0; i < num; ++i)
+  {
     cout << arr[i] << " ";
   }
   cout << endl;
 }
 
-int main() {
+int main()
+{
   int testSearch[10000];
   FillArrayRnd(testSearch, 10000, -1000, 1000);
   cout << "Linear search result: " << Search(testSearch, 10000, 322) << endl;
@@ -123,7 +171,7 @@ int main() {
   int testQuickSort[100];
   FillArrayRnd(testQuickSort, 100, -10, 10);
   PrintElem(testQuickSort, 50);
-  QuickSort(testQuickSort, 0, 99);
+  QuickSort(testQuickSort, 100);
   PrintElem(testQuickSort, 50);
 
   int testQuickSortRecursive[100];
