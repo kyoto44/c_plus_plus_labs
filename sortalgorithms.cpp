@@ -201,12 +201,20 @@ int main()
   RecursiveBinarySearch(timeComparsionTestArray, 6, 0, 100);
   auto endTimeRBS = chrono::steady_clock::now();
 
+  QuickSort(timeComparsionTestArray, 100);
+
+  auto startTimeLSS = chrono::steady_clock::now();
+  Search(timeComparsionTestArray, 100, 6);
+  auto endTimeLSS = chrono::steady_clock::now();
+
   auto benchmarkTimeLS =
       chrono::duration_cast<chrono::nanoseconds>(endTimeLS - startTimeLS);
   auto benchmarkTimeBS =
       chrono::duration_cast<chrono::nanoseconds>(endTimeBS - startTimeBS);
   auto benchmarkTimeRBS =
       chrono::duration_cast<chrono::nanoseconds>(endTimeRBS - startTimeRBS);
+  auto benchmarkTimeLSS =
+      chrono::duration_cast<chrono::nanoseconds>(endTimeLSS - startTimeLSS);
 
   cout << "Linear search benchmark time: " << benchmarkTimeLS.count() << " ns"
        << endl;
@@ -214,5 +222,8 @@ int main()
        << endl;
   cout << "Recursive binary search benchmark time: " << benchmarkTimeRBS.count()
        << " ns" << endl;
+  cout << "Sorted linear search benchmark time: " << benchmarkTimeLSS.count()
+       << " ns" << endl;
+
   return 0;
 }
